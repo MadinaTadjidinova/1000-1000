@@ -1,12 +1,16 @@
 import os
 import logging
 from aiogram import Bot, types, Router
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile, InputMediaDocument
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile, InputMediaDocument, CallbackQuery
 from config import CHAT_ID, TOPICS
+from aiogram.filters import Command
+from google_sheets import get_report_data
+
 
 router = Router()
 
 REPORT_TOPIC_ID = TOPICS.get("отчёт", None)
+REPORT_URL = "https://drive.google.com/drive/folders/1I9yIfSsrZeHh0n3g5JMLPbCtu0Ak-VOF?usp=sharing"
 REPORTS_DIR = "reports"
 REPORT_MESSAGE_ID = None  # ID сообщения с отчетами
 
@@ -21,6 +25,47 @@ def get_reports_keyboard():
             [InlineKeyboardButton(text="💰 Финансовый отчет", callback_data="show_finance_report")]
         ]
     )
+
+@router.message(Command("отчет"))
+async def send_report(message: types.Message):
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Кол-во участников", callback_data="show_members")],
+            [InlineKeyboardButton(text="💸 Сколько собрано",   callback_data="show_funds")],
+            [InlineKeyboardButton(text="📂 Полный отчёт", url=REPORT_URL)]
+        ]
+    )
+    await message.answer("📝 Выберите, что хотите посмотреть:", reply_markup=keyboard)
+
+
+@router.callback_query(lambda c: c.data in ["show_members", "show_funds"])
+async def handle_report_buttons(callback: CallbackQuery):
+    current_members, next_goal, goal_amount = get_report_data()
+
+    if callback.data == "show_members":
+        text = (
+            f"👥 Сейчас нас: <b>{current_members}</b>\n"
+            f"🎯 Следующая цель — <b>{next_goal}</b> патронов"
+        )
+    else:  # show_funds
+        text = (
+            f"💸 Собрано в этом месяце: <b>{goal_amount} сом</b>\n"
+
+            f"Спасибо каждому, кто помогает 💖"
+        )
+
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="📊 Кол-во участников", callback_data="show_members")],
+            [InlineKeyboardButton(text="💸 Сколько собрано",   callback_data="show_funds")],
+            [InlineKeyboardButton(text="📂 Полный отчёт",      url=REPORT_URL)]
+        ]
+    )
+
+    await callback.message.edit_text(text, reply_markup=keyboard, parse_mode="HTML")
+    await callback.answer()
+
+
 
 @router.message(lambda message: message.document and message.caption and message.caption.startswith("/upload_report"))
 async def handle_report_upload(message: types.Message, bot: Bot):
