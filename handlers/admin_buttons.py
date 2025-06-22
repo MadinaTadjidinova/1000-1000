@@ -1,12 +1,12 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-def get_admin_buttons(user_id, amount):
+def get_admin_buttons(check_id):
     """Создаёт inline-кнопки для подтверждения/отклонения чека"""
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"confirm|{user_id}|{amount}")],
-            [InlineKeyboardButton(text="❌ Отклонить", callback_data=f"reject|{user_id}|{amount}")]
+            [InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"confirm|{check_id}")],
+            [InlineKeyboardButton(text="❌ Отклонить", callback_data=f"reject|{check_id}")]
         ]
     )
 

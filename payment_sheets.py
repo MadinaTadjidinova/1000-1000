@@ -1,6 +1,9 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import pytz 
 from datetime import datetime
+import uuid 
+
 
 
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -11,15 +14,19 @@ SPREADSHEET_NAME = "проект 1000*1000"
 worksheet = client.open(SPREADSHEET_NAME).sheet1
 
 def add_payment(user_id, username, amount, method, status):
-    date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    tz = pytz.timezone('Asia/Bishkek') 
+    date = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
+    check_id = str(uuid.uuid4())[:8]
     worksheet.append_row([  # добавляем в конец
-        date, username, str(user_id), int(amount), method, status
+        check_id, date, username, str(user_id), int(amount), method, status
     ])
+    return check_id
 
-def update_payment_status(user_id, amount, new_status):
-    records = worksheet.get_all_records()
-    for idx, row in enumerate(records, start=2):  # начинаем с 2, потому что первая строка — заголовки
-        if str(row["Telegram ID"]) == str(user_id) and str(row["Сумма"]) == str(amount):
-            worksheet.update_cell(idx, 6, new_status)  # 6-я колонка — статус
+def update_payment_status_by_id(check_id, new_status):
+    expected_headers = ["ID чека", "Дата", "Имя пользователя", "Telegram ID", "Сумма", "Способ оплаты", "Статус"]
+    records = worksheet.get_all_records(expected_headers=expected_headers)
+
+    for idx, row in enumerate(records, start=2):  # начинаем с 2 — строка заголовков
+        if str(row["ID чека"]) == str(check_id):
+            worksheet.update_cell(idx, 7, new_status)  # 7 — колонка "Статус"
             break
-

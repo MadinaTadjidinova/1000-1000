@@ -23,8 +23,8 @@ def validate_receipt(image_path, expected_amount):
 def get_admin_buttons(user_id, amount):
     """Создаёт inline-кнопки для подтверждения/отклонения чека"""
     buttons = [
-        [InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"confirm|{user_id}|{amount}")],
-        [InlineKeyboardButton(text="❌ Отклонить", callback_data=f"reject|{user_id}|{amount}")]
+        [InlineKeyboardButton(text="✅ Подтвердить", callback_data=f"confirm|{check_id}")],
+        [InlineKeyboardButton(text="❌ Отклонить", callback_data=f"reject|{check_id}")]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 

@@ -44,8 +44,8 @@ async def pay_handler(message: types.Message):
             add_payment(user_id, username, amount, "Чек", "Подтверждено")
             await message.answer(f"✅ Чек автоматически подтверждён! Сумма: {amount} сом.")
         else:
-            add_payment(user_id, username, amount, "Чек (на проверке)", "Ожидание")
-            markup = get_admin_buttons(user_id, amount)
+            check_id = add_payment(user_id, username, amount, "Чек (на проверке)", "Ожидание")
+            markup = get_admin_buttons(check_id)
 
             await admin_bot.send_photo(
                 chat_id=ADMIN_CHAT_ID,
