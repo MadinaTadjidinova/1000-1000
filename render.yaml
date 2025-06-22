@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: 1000x1000-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - fromDotEnv: true

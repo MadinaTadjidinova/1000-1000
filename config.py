@@ -1,30 +1,28 @@
+import os
 from aiogram import Bot
+from dotenv import load_dotenv
 
-# 🔹 Бот для пользователей
-SPONSOR_BOT_TOKEN = "7610424500:AAG9guwRESV6ACNSDhUohUi3X5LSKFBCKJE"
-sponsor_bot = Bot(token=SPONSOR_BOT_TOKEN)
+load_dotenv()
 
-# 🔹 Бот для админов
-ADMIN_BOT_TOKEN = "7847845721:AAGFDHoGFpJOrI6zx1kteR204EWER9sONjc"
-admin_bot = Bot(token=ADMIN_BOT_TOKEN)
+# 🔹 Боты
+sponsor_bot = Bot(token=os.getenv("SPONSOR_BOT_TOKEN"))
+admin_bot = Bot(token=os.getenv("ADMIN_BOT_TOKEN"))
 
-# 🔹 Основные ID
-CHAT_ID = "-1002267046905"  # Группа для спонсоров
-ADMIN_CHAT_ID = "-1002446687533"  # Группа для админов
-ADMIN_IDS = [6946609744, 1138708088]  
+# 🔹 Чаты
+CHAT_ID = int(os.getenv("CHAT_ID"))
+ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID"))
+ADMIN_IDS = list(map(int, os.getenv("ADMIN_IDS").split(',')))
 
+# 🔹 Топики
 TOPICS = {
-    "онас": 24,
-    "отчёт": 18,
-    "джентельмен": 37,
-    "правила": 39,
-    "реквизит": 20,
-    "general": 1,
-    "проверка": 269
+    "онас": int(os.getenv("TOPIC_ONAS")),
+    "отчёт": int(os.getenv("TOPIC_OTCHET")),
+    "джентельмен": int(os.getenv("TOPIC_DG")),
+    "правила": int(os.getenv("TOPIC_RULES")),
+    "реквизит": int(os.getenv("TOPIC_PAY")),
+    "general": int(os.getenv("TOPIC_GENERAL")),
+    "проверка": int(os.getenv("TOPIC_CHECK")),
 }
 
-PAYMENT_REMINDER = (
-    "🔔 Напоминание: Приближается новый месяц, не забудьте внести 1000 сом на поддержку библиотеки! 💰\n"
-    "📌 Реквизиты можно найти в топике 'Реквизиты'.\n"
-    "Спасибо за вашу поддержку! ❤️"
-)
+# 🔹 Напоминание
+PAYMENT_REMINDER = os.getenv("PAYMENT_REMINDER")
