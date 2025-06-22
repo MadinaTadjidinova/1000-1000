@@ -2,5 +2,4 @@ aiogram==3.4.1
 python-dotenv
 gspread
 google-auth
-google-auth-oauthlib
 pytz
