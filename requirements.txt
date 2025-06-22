@@ -3,3 +3,4 @@ python-dotenv==1.0.1
 gspread==5.12.0
 google-auth==2.29.0
 pytz==2024.1
+pytesseract==0.3.10
