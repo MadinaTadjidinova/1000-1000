@@ -1,6 +1,7 @@
-from aiogram import Router, types, Bot
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram import Router, types, Bot, F
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from config import CHAT_ID, TOPICS
+
 
 router = Router()
 FAQ_TOPIC_ID = TOPICS["правила"]
@@ -180,10 +181,8 @@ async def back_to_main(callback: types.CallbackQuery):
     )
     await callback.answer()
 
-
-
-# ✅ Ручная отправка главного меню
-async def send_faq_menu(bot: Bot):
+@router.message(F.text == "/menu")
+async def handle_menu_command(message: Message, bot: Bot):
     await bot.send_message(
         chat_id=CHAT_ID,
         text="📢 Добро пожаловать! Выберите раздел:",
