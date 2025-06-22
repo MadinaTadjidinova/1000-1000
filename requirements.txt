@@ -1,5 +1,6 @@
 aiogram==3.4.1
 python-dotenv
 gspread
-oauth2client
+google-auth
+google-auth-oauthlib
 pytz

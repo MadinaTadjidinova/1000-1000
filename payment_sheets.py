@@ -1,5 +1,5 @@
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials
 import pytz 
 from datetime import datetime
 import uuid 
@@ -7,7 +7,7 @@ import uuid
 
 
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("payment_credentials.json", scope)
+creds = Credentials.from_service_account_file("payment_credentials.json", scopes=scope)
 client = gspread.authorize(creds)
 
 SPREADSHEET_NAME = "проект 1000*1000"
