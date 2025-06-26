@@ -10,8 +10,8 @@ FAQ_TOPIC_ID = TOPICS["правила"]
 def get_main_menu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="📜 Эрежелер / Правила", callback_data="menu_rules")],
-            [InlineKeyboardButton(text="❓ 📄 Джентльмендик келишим / Джентльменское соглашение", callback_data="menu_dj")],
+            [InlineKeyboardButton(text="📜 Правила", callback_data="menu_rules")],
+            [InlineKeyboardButton(text="📄 Джентльменское соглашение", callback_data="menu_dj")],
             [InlineKeyboardButton(text="❓ FAQ", callback_data="menu_faq")],
         ]
     )
@@ -20,14 +20,14 @@ def get_main_menu_keyboard():
 def get_rules_submenu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="1️⃣ Жалпы жоболор / Общие положения", callback_data="rule_1")],
-            [InlineKeyboardButton(text="2️⃣ Коомдун принциптери / Принципы сообщества", callback_data="rule_2")],
-            [InlineKeyboardButton(text="3️⃣ Колдоо формалары / Формы поддержки", callback_data="rule_3")],
+            [InlineKeyboardButton(text="1️⃣ Общие положения", callback_data="rule_1")],
+            [InlineKeyboardButton(text="2️⃣ Принципы сообщества", callback_data="rule_2")],
+            [InlineKeyboardButton(text="3️⃣ Формы поддержки", callback_data="rule_3")],
             # [InlineKeyboardButton(text="4️⃣ Джентльмендик келишим / Джентльменское соглашение", callback_data="rule_4")],
-            [InlineKeyboardButton(text="4️⃣ Укуктар жана артыкчылыктар / Права и привилегии", callback_data="rule_4")],
-            [InlineKeyboardButton(text="5️⃣ Отчеттуулук жана көзөмөл / Отчетность и контроль", callback_data="rule_5")],
-            [InlineKeyboardButton(text="6️⃣ Катышууну токтотуу / Завершение участия", callback_data="rule_6")],
-            [InlineKeyboardButton(text="⬅️ Артка / Назад", callback_data="back_to_main")]
+            [InlineKeyboardButton(text="4️⃣ Права и привилегии", callback_data="rule_4")],
+            [InlineKeyboardButton(text="5️⃣ Отчетность и контроль", callback_data="rule_5")],
+            [InlineKeyboardButton(text="6️⃣ Завершение участия", callback_data="rule_6")],
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]
         ]
     )
 
@@ -35,10 +35,10 @@ def get_rules_submenu_keyboard():
 def get_faq_submenu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="💸 Кантип төлөөгө болот? / Как оплатить?", callback_data="faq_1")],
-            [InlineKeyboardButton(text="🔓 Кандайча кирүүгө болот? / Как получить доступ?", callback_data="faq_2")],
-            [InlineKeyboardButton(text="❤️ Кантип колдосо болот? / Как поддержать проект?", callback_data="faq_3")],
-            [InlineKeyboardButton(text="⬅️ Артка / Назад", callback_data="back_to_main")]
+            [InlineKeyboardButton(text="💸 Как оплатить?", callback_data="faq_1")],
+            [InlineKeyboardButton(text="🔓 Как получить доступ?", callback_data="faq_2")],
+            [InlineKeyboardButton(text="❤️ Как поддержать проект?", callback_data="faq_3")],
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]
         ]
     )
 
@@ -46,7 +46,7 @@ def get_faq_submenu_keyboard():
 def get_dj_submenu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="⬅️ Артка / Назад", callback_data="back_to_main")]
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]
         ]
     )
 
