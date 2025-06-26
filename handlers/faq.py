@@ -11,7 +11,7 @@ def get_main_menu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text="📜 Правила", callback_data="menu_rules")],
-            [InlineKeyboardButton(text="📄 Джентльменское соглашение", callback_data="menu_dj")],
+            # [InlineKeyboardButton(text="📄 Джентльменское соглашение", callback_data="menu_dj")],
             [InlineKeyboardButton(text="❓ FAQ", callback_data="menu_faq")],
         ]
     )
@@ -23,7 +23,6 @@ def get_rules_submenu_keyboard():
             [InlineKeyboardButton(text="1️⃣ Общие положения", callback_data="rule_1")],
             [InlineKeyboardButton(text="2️⃣ Принципы сообщества", callback_data="rule_2")],
             [InlineKeyboardButton(text="3️⃣ Формы поддержки", callback_data="rule_3")],
-            # [InlineKeyboardButton(text="4️⃣ Джентльмендик келишим / Джентльменское соглашение", callback_data="rule_4")],
             [InlineKeyboardButton(text="4️⃣ Права и привилегии", callback_data="rule_4")],
             [InlineKeyboardButton(text="5️⃣ Отчетность и контроль", callback_data="rule_5")],
             [InlineKeyboardButton(text="6️⃣ Завершение участия", callback_data="rule_6")],
@@ -43,12 +42,12 @@ def get_faq_submenu_keyboard():
     )
 
 # 🔹 Подменю FAQ
-def get_dj_submenu_keyboard():
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]
-        ]
-    )
+# def get_dj_submenu_keyboard():
+#     return InlineKeyboardMarkup(
+#         inline_keyboard=[
+#             [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]
+#         ]
+#     )
 
 # 🔹 Тексты для разделов правил
 RULES_TEXT = {
@@ -125,11 +124,11 @@ async def show_rules_menu(callback: types.CallbackQuery):
                                      reply_markup=get_rules_submenu_keyboard(), parse_mode="Markdown")
     await callback.answer()
 
-@router.callback_query(lambda c: c.data == "menu_rules")
-async def show_rules_menu(callback: types.CallbackQuery):
-    await callback.message.edit_text("📘 *Правила сообщества:* Выберите раздел:",
-                                     reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
-    await callback.answer()
+# @router.callback_query(lambda c: c.data == "menu_rules")
+# async def show_rules_menu(callback: types.CallbackQuery):
+#     await callback.message.edit_text("📘 *Правила сообщества:* Выберите раздел:",
+#                                      reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
+#     await callback.answer()
 
 # ✅ Переход в подменю FAQ
 @router.callback_query(lambda c: c.data == "menu_faq")
@@ -153,11 +152,11 @@ async def show_faq(callback: types.CallbackQuery):
     await callback.answer()
 
 # ✅ Обработка разделов DJ
-@router.callback_query(lambda c: c.data in DJ_TEXT)
-async def show_rule(callback: types.CallbackQuery):
-    await callback.message.edit_text(DJ_TEXT[callback.data],
-                                     reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
-    await callback.answer()
+# @router.callback_query(lambda c: c.data in DJ_TEXT)
+# async def show_rule(callback: types.CallbackQuery):
+#     await callback.message.edit_text(DJ_TEXT[callback.data],
+#                                      reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
+#     await callback.answer()
 
 # ✅ Возврат в главное меню
 @router.callback_query(lambda c: c.data == "back_to_main")
