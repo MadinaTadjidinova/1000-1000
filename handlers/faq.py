@@ -112,7 +112,7 @@ FAQ_TEXT = {
 @router.callback_query(lambda c: c.data == "back_to_main")
 async def back_to_main(callback: types.CallbackQuery):
     await callback.message.edit_text(
-        "📢 *Кош келиңиз! Бөлүмдү тандаңыз*\n*Добро пожаловать! Выберите раздел:*",
+        "📢 *Добро пожаловать! Выберите раздел:*",
         reply_markup=get_main_menu_keyboard(),
         parse_mode="Markdown"
     )
@@ -121,13 +121,13 @@ async def back_to_main(callback: types.CallbackQuery):
 # ✅ Переход в подменю Правил
 @router.callback_query(lambda c: c.data == "menu_rules")
 async def show_rules_menu(callback: types.CallbackQuery):
-    await callback.message.edit_text("📘 *Коомчулуктун эрежелери / Правила сообщества:* Бөлүмдү тандаңыз / Выберите раздел:",
+    await callback.message.edit_text("📘 *Правила сообщества:* Выберите раздел:",
                                      reply_markup=get_rules_submenu_keyboard(), parse_mode="Markdown")
     await callback.answer()
 
 @router.callback_query(lambda c: c.data == "menu_rules")
 async def show_rules_menu(callback: types.CallbackQuery):
-    await callback.message.edit_text("📘 *Коомчулуктун эрежелери / Правила сообщества:* Бөлүмдү тандаңыз / Выберите раздел:",
+    await callback.message.edit_text("📘 *Правила сообщества:* Выберите раздел:",
                                      reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
     await callback.answer()
 
@@ -163,7 +163,7 @@ async def show_rule(callback: types.CallbackQuery):
 @router.callback_query(lambda c: c.data == "back_to_main")
 async def back_to_main(callback: types.CallbackQuery):
     await callback.message.edit_text(
-        "📢 Кош келиңиз! Бөлүмдү тандаңыз\nДобро пожаловать! Выберите раздел:",
+        "📢 Добро пожаловать! Выберите раздел:",
         reply_markup=get_main_menu_keyboard()
     )
     await callback.answer()
