@@ -183,9 +183,9 @@ async def show_faq(callback: types.CallbackQuery):
     await callback.answer()
 
 # ✅ Обработка разделов DJ
-@router.callback_query(lambda c: c.data in dj_TEXT)
+@router.callback_query(lambda c: c.data in DJ_TEXT)
 async def show_rule(callback: types.CallbackQuery):
-    await callback.message.edit_text(dj_TEXT[callback.data]
+    await callback.message.edit_text(DJ_TEXT[callback.data])
     await callback.answer()
 
 # ✅ Возврат в главное меню
