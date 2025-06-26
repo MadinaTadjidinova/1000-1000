@@ -10,6 +10,8 @@ from payments.payment_processing import pay_router as payments_router
 from payments.payment_approval import router as payment_approval_router
 from feedback import router as feedback_router
 from handlers.send_message import router as send_message_router
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 # ✅ Логирование
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
