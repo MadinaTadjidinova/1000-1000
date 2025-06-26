@@ -42,6 +42,13 @@ def get_faq_submenu_keyboard():
         ]
     )
 
+# 🔹 Подменю FAQ
+def get_dj_submenu_keyboard():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="⬅️ Артка / Назад", callback_data="back_to_main")]
+        ]
+    )
 
 # 🔹 Тексты для разделов правил
 RULES_TEXT = {
@@ -185,7 +192,8 @@ async def show_faq(callback: types.CallbackQuery):
 # ✅ Обработка разделов DJ
 @router.callback_query(lambda c: c.data in DJ_TEXT)
 async def show_rule(callback: types.CallbackQuery):
-    await callback.message.edit_text(DJ_TEXT[callback.data])
+    await callback.message.edit_text(DJ_TEXT[callback.data],
+                                     reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
     await callback.answer()
 
 # ✅ Возврат в главное меню
