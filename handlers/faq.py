@@ -168,6 +168,12 @@ async def show_rules_menu(callback: types.CallbackQuery):
                                      reply_markup=get_rules_submenu_keyboard(), parse_mode="Markdown")
     await callback.answer()
 
+@router.callback_query(lambda c: c.data == "menu_rules")
+async def show_rules_menu(callback: types.CallbackQuery):
+    await callback.message.edit_text("📘 *Коомчулуктун эрежелери / Правила сообщества:* Бөлүмдү тандаңыз / Выберите раздел:",
+                                     reply_markup=get_dj_submenu_keyboard(), parse_mode="Markdown")
+    await callback.answer()
+
 # ✅ Переход в подменю FAQ
 @router.callback_query(lambda c: c.data == "menu_faq")
 async def show_faq_menu(callback: types.CallbackQuery):
