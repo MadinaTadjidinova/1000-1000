@@ -4,16 +4,20 @@ from config import PAYMENT_REMINDER, CHAT_ID
 from aiogram import Bot
 
 async def auto_send_payment_reminder(bot: Bot):
-    """Автоматически отправляет напоминание о платеже 1-го и 26-го числа месяца."""
+    """Автоматически отправляет напоминание о платеже 1-го и 27-го числа месяца (один раз в день)."""
+    already_sent = set()
+
     while True:
-        await asyncio.sleep(36)  # Проверять раз в час
+        now = datetime.now()
+        day = now.day
+        date_key = now.strftime("%Y-%m-%d")
 
-        from datetime import datetime
-        today = datetime.now().day
-
-        if today in [1, 27]:  # Отправлять 1-го и 26-го числа
+        if day in [1, 27] and date_key not in already_sent:
             try:
-                await bot.send_message(CHAT_ID, PAYMENT_REMINDER)  # Убрали message_thread_id
-                logging.info("📅 Напоминание о платеже отправлено в общий чат.")
+                await bot.send_message(CHAT_ID, PAYMENT_REMINDER)
+                logging.info(f"📅 Напоминание отправлено: {date_key}")
+                already_sent.add(date_key)
             except Exception as e:
                 logging.error(f"❌ Ошибка отправки напоминания: {e}")
+
+        await asyncio.sleep(3600)  # Проверка каждый час
