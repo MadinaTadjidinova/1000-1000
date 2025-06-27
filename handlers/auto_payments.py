@@ -2,9 +2,9 @@ import asyncio
 import logging
 from config import PAYMENT_REMINDER, CHAT_ID
 from aiogram import Bot
+# from datetime import datetime
 
 async def auto_send_payment_reminder(bot: Bot):
-    """Автоматически отправляет напоминание о платеже 1-го и 27-го числа месяца (один раз в день)."""
     already_sent = set()
 
     while True:
@@ -12,7 +12,7 @@ async def auto_send_payment_reminder(bot: Bot):
         day = now.day
         date_key = now.strftime("%Y-%m-%d")
 
-        if day in [1, 27] and date_key not in already_sent:
+        if day in [1, 29] and date_key not in already_sent:
             try:
                 await bot.send_message(CHAT_ID, PAYMENT_REMINDER)
                 logging.info(f"📅 Напоминание отправлено: {date_key}")
